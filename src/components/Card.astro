@@ -1,12 +1,11 @@
 ---
 interface Props {
   title: string;
-  body: string;
   href: string;
   badge?: string;
 }
 
-const { href, title, body, badge } = Astro.props;
+const { href, title, badge } = Astro.props;
 ---
 
 <li class="link-card">
@@ -24,8 +23,6 @@ const { href, title, body, badge } = Astro.props;
       }
     </div>
 
-    <p class="text-gray-400">
-      {body}
-    </p>
+    <div class="text-gray-600 dark:text-gray-400 [&_*]:!text-inherit"><slot/></div>
   </a>
 </li>
