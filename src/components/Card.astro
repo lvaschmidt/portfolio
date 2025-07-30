@@ -1,18 +1,17 @@
 ---
 interface Props {
-  title: string;
-  href: string;
+  // href: string;
   badge?: string;
 }
 
-const { href, title, badge } = Astro.props;
+const { badge } = Astro.props;
 ---
 
 <li class="link-card">
-  <a href={href} target="_blank">
-    <div class="mb-1.5">
-      <h2 class="inline font-medium underline underline-offset-4">
-        {title}
+  <!-- <a href={href} target="_blank"> -->
+    <div class="mb-1.5 flex items-center gap-3">
+      <h2 class="inline font-medium">
+        <slot name="title">
       </h2>
       {
         badge && (
@@ -22,6 +21,6 @@ const { href, title, badge } = Astro.props;
         )
       }
     </div>
-  </a>
+  <!-- </a> -->
   <div class="text-gray-600 dark:text-gray-400"><slot/></div>
 </li>

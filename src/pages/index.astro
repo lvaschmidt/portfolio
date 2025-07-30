@@ -9,7 +9,7 @@ import ThemeIcon from "../components/ThemeIcon.astro";
     <img
       data-src="/header-image.webp"
       alt="Header"
-      style="width:100%;height:auto;aspect-ratio: 576 / 329.88;"
+      style="width:100%;height:auto;aspect-ratio: 576 / 329.88; border-radius: 5px;"
       loading="lazy"
     />
     <script>
@@ -60,18 +60,17 @@ import ThemeIcon from "../components/ThemeIcon.astro";
           body="soo helpful"
         /> -->
         <Card
-          href="https://autonomousracing.dev/"
-          title="Cavalier Racing — Indy Autonomous Challenge"
           badge="Team Member"
         >
+        <div slot="title"><a class="underline underline-offset-4" href="https://autonomousracing.dev/" target="_blank">Cavalier Racing</a> — <a class="underline underline-offset-4" href="https://www.indyautonomouschallenge.com/" target="_blank">Indy Autonomous Challenge</a></div>
         Recently, I wrote code to process LiDAR point clouds of racetracks, to extract surface
         normals from the roadway surface. (This was neccessary to race at Laguna
-        Seca, pictured.) I also wrote code to extract just the norms along planned
+        Seca (first road course), pictured.) Then I extract the norms along planned
         race-lines, and to load them into a k-d tree, which serves pitch and roll
-        in real time on the car, which allows the gravity component to be accurately
+        in real time on the car. This allows the gravity component to be accurately
         subtracted from accelerometer readings, providing better inputs to the localization
         EKF.<br /><br />
-        I wrote code to live-compare the expected/optimal with actual time for each
+        I also recently wrote code to live-compare the expected/optimal with actual time for each
         turn, to help identify which areas to investigate after the run.
         <br /><br />
         Current Project: The problem is that the vehicle follows a pre-computed race-line,
