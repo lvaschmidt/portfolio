@@ -56,28 +56,56 @@
 </style>
 
 <script is:inline>
-  // Always get fresh preference from the browser
-  const isDarkPreferred = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const THEME_KEY = "theme";
+  const THEME_DATE_KEY = "theme_set_time";
+  const THEME_TIMEOUT = 30 * 60 * 1000; // 30 minutes in ms
 
-  if (isDarkPreferred) {
-    document.documentElement.classList.add("dark");
+  function getSavedTheme() {
+    const theme = localStorage.getItem(THEME_KEY);
+    const setTime = localStorage.getItem(THEME_DATE_KEY);
+    if (theme && setTime) {
+      if (Date.now() - parseInt(setTime, 10) < THEME_TIMEOUT) {
+        return theme;
+      } else {
+        localStorage.removeItem(THEME_KEY);
+        localStorage.removeItem(THEME_DATE_KEY);
+      }
+    }
+    return null;
+  }
+
+  // Get theme, considering expiration
+  const savedTheme = typeof localStorage !== "undefined" ? getSavedTheme() : null;
+  let theme;
+  if (savedTheme) {
+    theme = savedTheme;
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    theme = "dark";
   } else {
+    theme = "light";
+  }
+
+  if (theme === "light") {
     document.documentElement.classList.remove("dark");
+  } else {
+    document.documentElement.classList.add("dark");
+  }
+
+  // Only store if no (valid) savedTheme
+  if (!savedTheme) {
+    localStorage.setItem(THEME_KEY, theme);
+    localStorage.setItem(THEME_DATE_KEY, Date.now().toString());
   }
 
   const handleToggleClick = () => {
-    document.documentElement.classList.toggle("dark");
+    const element = document.documentElement;
+    element.classList.toggle("dark");
+    const isDark = element.classList.contains("dark");
+    localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+    localStorage.setItem(THEME_DATE_KEY, Date.now().toString());
   };
 
   document
     .getElementById("themeToggle")
     .addEventListener("click", handleToggleClick);
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (e.matches) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  });
 </script>
