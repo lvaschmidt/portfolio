@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import ThemeIcon from "../components/ThemeIcon.astro";
-import {Image} from "astro:assets";
+import { Image } from "astro:assets";
 ---
 
 <Layout title="Portfolio | Lysander Schmidt" ogImage="/header-image.webp">
@@ -115,10 +115,12 @@ import {Image} from "astro:assets";
             >interactive visualizer</a
           > to explore them. This is useful for understanding how these large language
           models work internally.
-          <img
-            data-src="/attention_viz_example.webp"
+          <Image
+            src="/attention_viz_example.webp"
             alt="Header"
-            style="width:80%;height:auto;margin:auto;aspect-ratio: 2024/1572; border-radius: 5px;"
+            width={2024}
+            height={1572}
+            class="w-full md:w-4/5 mx-auto rounded-md"
             loading="lazy"
           />
           I also published several example tensor files to play with in the visualizer.
@@ -161,10 +163,12 @@ import {Image} from "astro:assets";
           so he can know differentiate them. It’s been optimized for (his) iPhone
           camera/lighting, but should work on other devices too. Feel free to play
           with it yourself. <br /><br />
-          <img
-            data-src="/scanned_banana.avif"
+          <Image
+            src="/scanned_banana.avif"
             alt="Scanned Banana"
-            style="width:80%;height:auto;margin:auto;aspect-ratio: 2024/1572; border-radius: 5px;"
+            width={2024}
+            height={1572}
+            class="w-full md:w-4/5 mx-auto rounded-md"
             loading="lazy"
           />
         </Card>
