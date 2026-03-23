@@ -2,28 +2,40 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import ThemeIcon from "../components/ThemeIcon.astro";
+import {Image} from "astro:assets";
 ---
 
 <Layout title="Portfolio | Lysander Schmidt" ogImage="/header-image.webp">
   <main class="p-8 max-w-screen-sm mx-auto">
-    <img
+    <!-- <img
       data-src="/header-image.webp"
       alt="Header"
       style="width:100%;height:auto;aspect-ratio: 576 / 329.88; border-radius: 5px;"
       loading="lazy"
+    /> -->
+    <Image
+      src="/header-image.webp"
+      alt="Header"
+      width={576}
+      height={330}
+      style={{ width: "100%", height: "auto", borderRadius: "5px" }}
+      loading="eager"
+      decoding="async"
     />
-    <script>
+    <!-- <script>
       let loadedimg = false;
       window.onload = () => {
         if (!loadedimg) {
-          const img = document.querySelector("img");
-          if (img && img.dataset.src) {
-            img.src = img.dataset.src;
-          }
+          const imgs = document.querySelectorAll("img");
+          imgs.forEach((img) => {
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+            }
+          });
           loadedimg = true;
         }
       };
-    </script>
+    </script> -->
     <header class="flex justify-between py-4 items-start">
       <div>
         <h1 class="text-lg font-semibold">Lysander Schmidt</h1>
@@ -59,25 +71,102 @@ import ThemeIcon from "../components/ThemeIcon.astro";
           title="R⌥AI"
           body="soo helpful"
         /> -->
-        <Card
-          badge="Team Member"
-        >
-        <div slot="title"><a class="underline underline-offset-4" href="https://autonomousracing.dev/" target="_blank">Cavalier Racing</a> — <a class="underline underline-offset-4" href="https://www.indyautonomouschallenge.com/" target="_blank">Indy Autonomous Challenge</a></div>
-        Recently, I wrote code to process LiDAR point clouds of racetracks, to extract surface
-        normals from the roadway surface. (This was neccessary to race at Laguna
-        Seca (first road course), pictured.) Then I extract the norms along planned
-        race-lines, and to load them into a k-d tree, which serves pitch and roll
-        in real time on the car. This allows the gravity component to be accurately
-        subtracted from accelerometer readings, providing better inputs to the localization
-        EKF.<br /><br />
-        I also recently wrote code to live-compare the expected/optimal with actual time for each
-        turn, to help identify which areas to investigate after the run.
-        <br /><br />
-        Current Project: The problem is that the vehicle follows a pre-computed race-line,
-        and we modify speed during testing by scaling or setting a maximum speed.
-        However, we want to test by setting maximum (lateral and longitudinal) tire
-        forces. My project is to compute optimal trajectories and velocity profiles
-        constrained by tire-force limitations, on demand.
+        <Card badge="Team Member">
+          <div slot="title">
+            <a
+              class="underline underline-offset-4"
+              href="https://autonomousracing.dev/"
+              target="_blank">Cavalier Racing</a
+            > — <a
+              class="underline underline-offset-4"
+              href="https://www.indyautonomouschallenge.com/"
+              target="_blank">Indy Autonomous Challenge</a
+            >
+          </div>
+          Recently, I wrote code to process LiDAR point clouds of racetracks, to
+          extract surface normals from the roadway surface. (This was neccessary
+          to race at Laguna Seca (first road course), pictured.) Then I extract the
+          norms along planned race-lines, and to load them into a k-d tree, which
+          serves pitch and roll in real time on the car. This allows the gravity
+          component to be accurately subtracted from accelerometer readings, providing
+          better inputs to the localization EKF.<br /><br />
+          I also recently wrote code to live-compare the expected/optimal with actual
+          time for each turn, to help identify which areas to investigate after the
+          run.
+          <br /><br />
+          Current Project: The problem is that the vehicle follows a pre-computed
+          race-line, and we modify speed during testing by scaling or setting a maximum
+          speed. However, we want to test by setting maximum (lateral and longitudinal)
+          tire forces. My project is to compute optimal trajectories and velocity
+          profiles constrained by tire-force limitations, on demand.
+        </Card>
+        <Card>
+          <div slot="title">Qwen Attention Visualizer</div>
+          I published a <a
+            class="underline underline-offset-3"
+            target="_blank"
+            href="https://storage.googleapis.com/lvs-usa/attention-viz/export_attention_tensors.ipynb"
+            >notebook</a
+          > to generate tensor files that contain the attention paid by every token
+          to every other at every layer in small dense Qwen3 models, and an <a
+            class="underline underline-offset-3"
+            target="_blank"
+            href="https://storage.googleapis.com/lvs-usa/attention-viz/visualizer.html"
+            >interactive visualizer</a
+          > to explore them. This is useful for understanding how these large language
+          models work internally.
+          <img
+            data-src="/attention_viz_example.webp"
+            alt="Header"
+            style="width:80%;height:auto;margin:auto;aspect-ratio: 2024/1572; border-radius: 5px;"
+            loading="lazy"
+          />
+          I also published several example tensor files to play with in the visualizer.
+          <center class="text-blue-500 dark:text-blue-400">
+            <ul>
+              <li>
+                <a
+                  target="_blank"
+                  href="https://storage.googleapis.com/lvs-usa/attention-viz/GQA_tensor.bin"
+                  >Small (400KB, 4B Model)</a
+                >
+              </li>
+              <li>
+                <a
+                  target="_blank"
+                  href="https://storage.googleapis.com/lvs-usa/attention-viz/dragon_attention_tensor.bin"
+                  >Medium (5 MB, 0.6B Model)</a
+                >
+              </li>
+              <li>
+                <a
+                  target="_blank"
+                  href="https://storage.googleapis.com/lvs-usa/attention-viz/vending_machine_attention_tensor.bin"
+                  >Large (20MB, 4B Model)</a
+                >
+              </li>
+            </ul>
+          </center>
+        </Card>
+        <Card>
+          <div slot="title">
+            <a
+              class="underline underline-offset-4"
+              href="https://banana-scanner.lvas.dev/"
+              target="_blank">Banana Scanner</a
+            >
+          </div>
+          One of my friends is colorblind in a way that makes it hard to tell green
+          bananas from yellow ones. I built a tool to highlight green on bananas
+          so he can know differentiate them. It’s been optimized for (his) iPhone
+          camera/lighting, but should work on other devices too. Feel free to play
+          with it yourself. <br /><br />
+          <img
+            data-src="/scanned_banana.avif"
+            alt="Scanned Banana"
+            style="width:80%;height:auto;margin:auto;aspect-ratio: 2024/1572; border-radius: 5px;"
+            loading="lazy"
+          />
         </Card>
       </ul>
     </section>
